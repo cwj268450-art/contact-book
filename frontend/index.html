@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>通讯录 · Contact Book</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">AB</div>
+        <div class="brand-text">
+          <h1>通讯录</h1>
+          <p>Contact Book · 收藏 / 多联系方式 / Excel 互通</p>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"/></svg>
+        <input id="searchInput" type="search" placeholder="搜索姓名、电话、邮箱、备注…" autocomplete="off" />
+        <kbd>/</kbd>
+      </div>
+
+      <div class="actions">
+        <button id="btnTemplate" class="btn btn-ghost" title="下载导入模板">模板</button>
+        <button id="btnImport" class="btn btn-ghost">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M12 4l-3.5 3.5M12 4l3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+          导入 Excel
+        </button>
+        <button id="btnExport" class="btn btn-ghost">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M12 15l-3.5-3.5M12 15l3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+          导出 Excel
+        </button>
+        <button id="btnNew" class="btn btn-primary">+ 新建联系人</button>
+        <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" hidden />
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <nav class="nav" id="nav">
+          <button class="nav-item is-active" data-filter="all">
+            <span class="nav-label">全部联系人</span>
+            <span class="count" id="countAll">0</span>
+          </button>
+          <button class="nav-item" data-filter="starred">
+            <span class="nav-label"><svg class="star-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.6 5.4 5.9.8-4.3 4.2 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.2 5.9-.8z"/></svg>收藏联系人</span>
+            <span class="count" id="countStar">0</span>
+          </button>
+        </nav>
+
+        <div class="group-block">
+          <h3>分组</h3>
+          <ul class="group-list" id="groupList"></ul>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat"><span class="stat-num" id="statMethods">0</span><span class="stat-label">条联系方式</span></div>
+          <div class="stat"><span class="stat-num" id="statGroups">0</span><span class="stat-label">个分组</span></div>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="toolbar">
+          <p class="result-info" id="resultInfo">共 0 位联系人</p>
+          <div class="toolbar-right">
+            <label class="sort-wrap">
+              排序
+              <select id="sortSelect">
+                <option value="starred">收藏优先，再按姓名</option>
+                <option value="name">按姓名 A→Z</option>
+                <option value="updated">最近修改优先</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid" id="cardGrid"></div>
+
+        <div class="empty" id="emptyState" hidden>
+          <div class="empty-art">AB</div>
+          <h2>没有匹配的联系人</h2>
+          <p>换个关键词，或者点击「新建联系人」添加一条。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footbar">
+      <span>前后端分离：前端静态页 + Node.js REST API</span>
+      <span class="dot">•</span>
+      <span>v1.0.0</span>
+    </footer>
+  </div>
+
+  <!-- 详情面板 -->
+  <div class="modal" id="detailModal" hidden>
+    <div class="modal-backdrop" data-close="detail"></div>
+    <div class="sheet detail-sheet">
+      <button class="icon-btn close" data-close="detail" aria-label="关闭">×</button>
+      <div class="detail-head">
+        <div class="avatar big" id="detailAvatar">?</div>
+        <div class="detail-id">
+          <h2 id="detailName">—</h2>
+          <div class="chips">
+            <span class="chip" id="detailGroup">—</span>
+            <span class="chip chip-star" id="detailStar" hidden>★ 已收藏</span>
+          </div>
+        </div>
+      </div>
+      <p class="detail-note" id="detailNote"></p>
+      <ul class="detail-methods" id="detailMethods"></ul>
+      <div class="detail-actions">
+        <button class="btn btn-danger" id="btnDelete">删除</button>
+        <div class="spacer"></div>
+        <button class="btn btn-ghost" id="btnToggleStar">收藏</button>
+        <button class="btn btn-primary" id="btnEdit">编辑</button>
+      </div>
+      <p class="detail-meta" id="detailMeta"></p>
+    </div>
+  </div>
+
+  <!-- 新建 / 编辑表单 -->
+  <div class="modal" id="formModal" hidden>
+    <div class="modal-backdrop" data-close="form"></div>
+    <div class="sheet form-sheet">
+      <button class="icon-btn close" data-close="form" aria-label="关闭">×</button>
+      <h2 id="formTitle">新建联系人</h2>
+      <form id="contactForm" autocomplete="off">
+        <div class="field-row">
+          <label class="field">
+            <span>姓名 <i>*</i></span>
+            <input id="fName" name="name" required maxlength="40" placeholder="例如：陈文俊" />
+          </label>
+          <label class="field">
+            <span>分组</span>
+            <input id="fGroup" name="group" maxlength="20" list="groupOptions" placeholder="例如：同学" />
+            <datalist id="groupOptions"></datalist>
+          </label>
+        </div>
+
+        <div class="field">
+          <span>联系方式 <i class="hint">同一联系人可添加多条</i></span>
+          <div class="method-editor" id="methodEditor"></div>
+          <div class="method-add">
+            <select id="newMethodType">
+              <option value="phone">手机</option>
+              <option value="email">邮箱</option>
+              <option value="wechat">微信</option>
+              <option value="qq">QQ</option>
+              <option value="address">地址</option>
+              <option value="other">其他</option>
+            </select>
+            <input id="newMethodValue" placeholder="输入内容后按回车添加" />
+            <button type="button" class="btn btn-ghost" id="btnAddMethod">添加</button>
+          </div>
+          <p class="form-tip" id="methodTip">支持手机 / 邮箱 / 微信 / QQ / 地址 / 其他，可重复添加。</p>
+        </div>
+
+        <div class="field">
+          <span>备注</span>
+          <textarea id="fNote" name="note" rows="2" maxlength="200" placeholder="选填，例如：软件工程课队友"></textarea>
+        </div>
+
+        <label class="switch-line">
+          <input type="checkbox" id="fStar" />
+          <span class="switch"></span>
+          <span>加入收藏（收藏的联系人会置顶并单独归类）</span>
+        </label>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-close="form">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
