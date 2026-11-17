@@ -11,12 +11,12 @@
 | 团队名称 | FZU-Contact-Book（个人独立完成） |
 | 作业要求 | [CSDN 作业帖：Extreme Programming（Deadline: November 17, 2026, 23:59）](https://bbs.csdn.net/topics/620593436) |
 | 本次作业目标 | 用极限编程的迭代思路完成一个通讯录 Web 应用：收藏联系人（25 分）、一个联系人多种联系方式（10 分）、Excel 导入导出（25 分）、页面样式（10 分），并沉淀可评审的仓库、提交记录、截图与文档 |
-| 代码仓库 | <https://github.com/cwj268450-art/contact-book> |
-| 发行版本 | <https://github.com/cwj268450-art/contact-book/releases/tag/v1.0.0> |
-| Pull Request | <https://github.com/cwj268450-art/contact-book/pull/1> |
-| 提交历史 | <https://github.com/cwj268450-art/contact-book/commits/main> |
-| 代码规范 | <https://github.com/cwj268450-art/contact-book/blob/main/CODE_STANDARDS.md> |
-| 接口文档 | <https://github.com/cwj268450-art/contact-book/blob/main/docs/api.md> |
+| 代码仓库 | [链接](https://github.com/cwj268450-art/contact-book) |
+| 发行版本 | [链接](https://github.com/cwj268450-art/contact-book/releases/tag/v1.0.0) |
+| Pull Request | [链接](https://github.com/cwj268450-art/contact-book/pull/1) |
+| 提交历史 | [链接](https://github.com/cwj268450-art/contact-book/commits/main) |
+| 代码规范 | [链接](https://github.com/cwj268450-art/contact-book/blob/main/CODE_STANDARDS.md) |
+| 接口文档 | [链接](https://github.com/cwj268450-art/contact-book/blob/main/docs/api.md) |
 | 其他参考 | MDN Web Docs（Fetch / FileReader）、SheetJS 官方文档、Git 官方文档、CSDN Markdown 语法说明 |
 
 ## 二、目录
@@ -329,10 +329,12 @@ node backend/src/server.js
 | `0ba8f03` | docs: 补充 README 与 REST 接口文档 |
 | `d6210ea` | fix(frontend): 去除弹层遮罩的 backdrop-filter（PR #1） |
 | `0c5ae90` | Merge pull request #1 from cwj268450-art/feature/ui-polish |
+| `616ae57` | docs(blog): 增加 CSDN 作业博客稿与 README 深链说明 |
+| `a5efa42` | fix(frontend): 修正收藏深链的导航选择器并支持 hash 变化即时切换 |
 
-- 提交历史：<https://github.com/cwj268450-art/contact-book/commits/main>
-- 功能分支 PR：<https://github.com/cwj268450-art/contact-book/pull/1>
-- 发行版本：<https://github.com/cwj268450-art/contact-book/releases/tag/v1.0.0>
+- 提交历史：[提交历史](https://github.com/cwj268450-art/contact-book/commits/main)
+- 功能分支 PR：[PR #1](https://github.com/cwj268450-art/contact-book/pull/1)
+- 发行版本：[Release v1.0.0](https://github.com/cwj268450-art/contact-book/releases/tag/v1.0.0)
 
 提交粒度的原则是「一次提交只做一件事」，提交信息统一 `type(scope): 说明` 格式，便于回溯某次改动到底动了哪一层。
 
@@ -387,10 +389,10 @@ node backend/src/server.js
 
 **相关链接汇总**
 
-- 仓库：<https://github.com/cwj268450-art/contact-book>
-- 提交记录：<https://github.com/cwj268450-art/contact-book/commits/main>
-- PR #1：<https://github.com/cwj268450-art/contact-book/pull/1>
-- Release v1.0.0：<https://github.com/cwj268450-art/contact-book/releases/tag/v1.0.0>
-- 代码规范：<https://github.com/cwj268450-art/contact-book/blob/main/CODE_STANDARDS.md>
-- 接口文档：<https://github.com/cwj268450-art/contact-book/blob/main/docs/api.md>
-- 作业原帖：<https://bbs.csdn.net/topics/620593436>
+- 仓库：[代码仓库](https://github.com/cwj268450-art/contact-book)
+- 提交记录：[提交历史](https://github.com/cwj268450-art/contact-book/commits/main)
+- PR #1：[PR #1](https://github.com/cwj268450-art/contact-book/pull/1)
+- Release v1.0.0：[Release v1.0.0](https://github.com/cwj268450-art/contact-book/releases/tag/v1.0.0)
+- 代码规范：[代码规范](https://github.com/cwj268450-art/contact-book/blob/main/CODE_STANDARDS.md)
+- 接口文档：[接口文档](https://github.com/cwj268450-art/contact-book/blob/main/docs/api.md)
+- 作业原帖：[作业原帖](https://bbs.csdn.net/topics/620593436)
