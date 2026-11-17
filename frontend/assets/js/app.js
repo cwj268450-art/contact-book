@@ -535,9 +535,11 @@ function applyDeepLink() {
     if (contact) openForm(contact);
   } else if (key === 'new') openForm(null);
   else if (key === 'starred') {
-    state.filter = 'starred';
-    $('#filterStarred').click();
+    const starredNav = $('#nav .nav-item[data-filter="starred"]');
+    if (starredNav) starredNav.click();
   }
 }
+
+window.addEventListener('hashchange', applyDeepLink);
 
 document.addEventListener('DOMContentLoaded', boot);
