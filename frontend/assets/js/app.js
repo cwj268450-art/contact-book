@@ -515,6 +515,29 @@ async function boot() {
   } catch (err) {
     toast('加载通讯录失败：' + err.message, 'error');
   }
+  applyDeepLink();
+}
+
+/**
+ * URL 深链：便于把某个界面状态直接分享出去（也方便自动化截图）
+ *   #detail=<id>  打开该联系人详情
+ *   #edit=<id>    打开编辑表单
+ *   #new          打开新建表单
+ *   #starred      只看收藏
+ */
+function applyDeepLink() {
+  const raw = String(location.hash || '').replace(/^#/, '');
+  if (!raw) return;
+  const [key, value] = raw.split('=');
+  if (key === 'detail' && value) openDetail(decodeURIComponent(value));
+  else if (key === 'edit' && value) {
+    const contact = state.contacts.find((c) => c.id === decodeURIComponent(value));
+    if (contact) openForm(contact);
+  } else if (key === 'new') openForm(null);
+  else if (key === 'starred') {
+    state.filter = 'starred';
+    $('#filterStarred').click();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', boot);
