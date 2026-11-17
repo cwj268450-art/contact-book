@@ -1,0 +1,15 @@
+{
+  "name": "contact-book-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "通讯录后端服务：REST API、Excel 导入导出、静态资源托管（零第三方依赖）",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "license": "MIT"
+}
