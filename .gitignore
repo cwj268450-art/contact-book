@@ -1,0 +1,20 @@
+# 依赖与构建产物
+node_modules/
+package-lock.json
+*.log
+
+# 运行时数据（首次启动由 backend/src/store.js 自动生成）
+backend/data/*.json
+backend/data/*.json.tmp
+backend/data/*.corrupt-*
+
+# 导出/临时文件
+*.zip
+*.tmp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
